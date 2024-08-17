@@ -33,7 +33,7 @@ function App() {
             {
               data.map(function(a, i) {
               return (
-                <Product 
+                <Product key={i}
                 image={`https://codingapple1.github.io/shop/shoes${i+1}.jpg`} 
                 title={shoes[i].title} 
                 content={shoes[i].content}/>
@@ -43,7 +43,8 @@ function App() {
           </Row>
           </>
         }/>
-        <Route path="/detail" element={<Detail/>}/>
+        <Route path="/detail/:id" element={<Detail shoes = {shoes}/>}/>
+
         <Route path="*" element={<div>404 페이지</div>}/>
         <Route path="/about" element={<About/>}>
           <Route path="member" element={<div>멤버</div>}/>
