@@ -1,11 +1,13 @@
 /* eslint-disable */
 import logo from './logo.svg';
+import { useState } from "react";
 import './App.css';
 import { Nav, Navbar, Container, Row, Col } from 'react-bootstrap';
 import bg from './img/bg.png';
+import data from './data'
 
 function App() {
-  let [shoes] = useState()
+  let [shoes] = useState(data)
   return (
     <div className="App">
       <Navbar bg="light" data-bs-theme="light">
@@ -20,30 +22,28 @@ function App() {
       </Navbar>
       <div className='main-bg'></div>
       <Row>
-        <Col sm>
-          <img 
-          src="https://codingapple1.github.io/shop/shoes1.jpg"
-          width="80%"/>
-          <h4>상품명</h4>
-          <p>상품설명</p>
-          </Col>
-        <Col sm>
-        <img 
-          src="https://codingapple1.github.io/shop/shoes2.jpg"
-          width="80%"/>
-          <h4>상품명</h4>
-          <p>상품설명</p>
-        </Col>
-        <Col sm>
-          <img 
-          src="https://codingapple1.github.io/shop/shoes3.jpg"
-          width="80%"/>
-          <h4>상품명</h4>
-          <p>상품설명</p>
-        </Col>
+        {
+          data.map(function(a, i) {
+            return (
+              <Product image={`https://codingapple1.github.io/shop/shoes${i+1}.jpg`} title={shoes[i].title} content={shoes[i].content}/>
+            )
+          })
+        }
       </Row>
     </div>
   );
+}
+
+function Product(props) {
+  return (
+    <Col sm>
+      <img 
+      src={props.image}
+      width="80%"/>
+      <h4>{props.title}</h4>
+      <p>{props.content}</p>
+    </Col>
+  )
 }
 
 export default App;
