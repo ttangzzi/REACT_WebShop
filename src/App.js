@@ -34,7 +34,8 @@ function App() {
               data.map(function(a, i) {
               return (
                 <Product key={i}
-                image={`https://codingapple1.github.io/shop/shoes${i+1}.jpg`} 
+                image={`https://codingapple1.github.io/shop/shoes${i+1}.jpg`}
+                link={`/detail/${i}`}
                 title={shoes[i].title} 
                 content={shoes[i].content}/>
               )
@@ -64,9 +65,11 @@ function App() {
 function Product(props) {
   return (
     <Col sm>
-      <img 
-      src={props.image}
-      width="80%"/>
+      <a href={props.link}>
+        <img 
+        src={props.image}
+        width="80%"/>
+      </a>
       <h4>{props.title}</h4>
       <p>{props.content}</p>
     </Col>
