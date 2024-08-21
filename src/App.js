@@ -61,7 +61,6 @@ function App() {
         .then((result)=>{
             let copyData = [...data, ...result.data]
             setShoes(copyData)
-            console.log(copyData)
         })
         .catch(()=>{
           // 예외처리
@@ -74,6 +73,8 @@ function App() {
 
 function Product(props) {
   return (
+    <>
+    <div style={{display: props.i % 3 == 0 ? "block" : "none"}}></div>
     <Col>
       <a href={`/detail/${props.i}`}>
         <img 
@@ -83,6 +84,7 @@ function Product(props) {
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.content}</p>
     </Col>
+    </>
   )
 }
 
