@@ -1,6 +1,6 @@
 /* eslint-disable */
 import logo from './logo.svg';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './App.css';
 import { Nav, Navbar, Container, Row, Col } from 'react-bootstrap';
 import bg from './img/bg.png';
@@ -10,8 +10,11 @@ import { Routes, Route, Link, useNavigate, Outlet} from "react-router-dom"
 import axios from "axios"
 
 function App() {
-  let [shoes, setShoes] = useState(data)
+  let [load, setLoad] = useState("none");
+  let [addCount, setAddCount] = useState(0);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+
   return (
     <div className="App">
 
@@ -56,17 +59,39 @@ function App() {
           <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
         </Route>
       </Routes>
+
+      <p style={{color : "grey", display: load}}>loading...</p>
       <button onClick={()=>{
-        axios.get('https://codingapple1.github.io/shop/data2.json')
-        .then((result)=>{
-            let copyData = [...data, ...result.data]
+        setLoad("block")
+        if(addCount == 0) {
+          axios.get('https://codingapple1.github.io/shop/data2.json')
+          .then((result)=>{
+            let copyData = [...shoes, ...result.data]
             setShoes(copyData)
-        })
-        .catch(()=>{
-          // 예외처리
-          console.log("fail")
-        })
-      }}>추가</button>
+            setAddCount(addCount = addCount + 1)
+            setLoad("none")
+          })
+          .catch(()=>{
+            // 예외처리
+            console.log("fail")
+            setLoad("none")
+          })
+        }
+        else if (addCount == 1) {
+          axios.get('https://codingapple1.github.io/shop/data3.json')
+          .then((result)=>{
+            let copyData = [...shoes, ...result.data]
+            setShoes(copyData)
+            setAddCount(addCount = addCount + 1)
+            setLoad("none")
+          })
+          .catch(()=>{
+            // 예외처리
+            console.log("fail")
+            setLoad("none")
+          })
+        }
+      }} style={{display: addCount > 1 ? "none": "inline-block" }}>추가</button>
     </div>
   );
 }
@@ -74,7 +99,7 @@ function App() {
 function Product(props) {
   return (
     <>
-    <div style={{display: props.i % 3 == 0 ? "block" : "none"}}></div>
+    <div style={{display: props.i % 3 == 0 ? "inline-block" : "none"}}></div>
     <Col>
       <a href={`/detail/${props.i}`}>
         <img 
