@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Container, Row, Col } from 'react-bootstrap';
+import { Nav ,Container, Row, Col } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 // import styled from 'styled-components'
@@ -20,6 +20,7 @@ function Detail(props) {
   let [timediv, setTimediv] = useState(true);
   let [warn, setWarn] = useState(false);
   let [inputValue, setInputValue] = useState('');
+  let [tab, setTab] = useState(0);
   let {id} = useParams();
 
   // useEffect(()=> {
@@ -32,24 +33,28 @@ function Detail(props) {
   //   }
   // },[]);
 
-  // useEffect(()=> {
-  //   isNaN(inputValue) ? setWarn(true) : setWarn(false);
-  // },[inputValue])
+  useEffect(()=> {
+    isNaN(inputValue) ? setWarn(true) : setWarn(false);
+  },[inputValue])
 
-  const shoe = props.shoes.find(function(item) { return item.id === Number(id)})
+  const shoe = props.shoes.find(function(item) { 
+    console.log(item.id)
+    return item.id === Number(id)
+  })
   if(!shoe) {
+    console.log(id)
     return <div>404 페이지</div>
   }
   else {
     return (
       <Container>
-        {
+        {/* {
           timediv === true ? <div className='alert alert-warning'>
           2초이내 구매시 할인
           </div> : null
         }
         {count}
-        <button onClick={()=>{setCount(count+1)}}>버튼2</button>
+        <button onClick={()=>{setCount(count+1)}}>버튼2</button> */}
         <Row>
           <Col>
             <img src={`https://codingapple1.github.io/shop/shoes${shoe.id +1}.jpg`} width="100%" />
@@ -67,10 +72,35 @@ function Detail(props) {
             <button className="btn btn-danger">주문하기</button> 
           </Col>
         </Row>
+
+        <Nav variant="tabs"  defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link eventKey="link0" onClick={()=>{setTab(0)}}>버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link1" onClick={()=>{setTab(1)}}>버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <TabContent tab = {tab}/>
       </Container> 
     )
   }
-  
+}
+
+function TabContent(props) {
+  // if(props.tab == 0) {
+  //   return <div>내용0</div>
+  // }
+  // else if (props.tab == 1) {
+  //   return <div>내용1</div>
+  // }
+  // else if (props.tab == 2) {
+  //   return <div>내용2</div>
+  // }
+  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]
 }
 
 export default Detail;

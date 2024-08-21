@@ -44,6 +44,38 @@ function App() {
               })
             }
           </Row>
+          <p style={{color : "grey", display: load}}>loading...</p>
+          <button onClick={()=>{
+            setLoad("block")
+            if(addCount == 0) {
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{
+                let copyData = [...shoes, ...result.data]
+                setShoes(copyData)
+                setAddCount(addCount = addCount + 1)
+                setLoad("none")
+              })
+              .catch(()=>{
+                // 예외처리
+                console.log("fail")
+                setLoad("none")
+              })
+            }
+            else if (addCount == 1) {
+              axios.get('https://codingapple1.github.io/shop/data3.json')
+              .then((result)=>{
+                let copyData = [...shoes, ...result.data]
+                setShoes(copyData)
+                setAddCount(addCount = addCount + 1)
+                setLoad("none")
+              })
+              .catch(()=>{
+                // 예외처리
+                console.log("fail")
+                setLoad("none")
+              })
+            }
+          }} style={{display: addCount > 1 ? "none": "inline-block" }}>추가</button>
           </>
         }/>
         <Route path="/detail/:id" element={<Detail shoes = {shoes}/>}/>
@@ -59,39 +91,6 @@ function App() {
           <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
         </Route>
       </Routes>
-
-      <p style={{color : "grey", display: load}}>loading...</p>
-      <button onClick={()=>{
-        setLoad("block")
-        if(addCount == 0) {
-          axios.get('https://codingapple1.github.io/shop/data2.json')
-          .then((result)=>{
-            let copyData = [...shoes, ...result.data]
-            setShoes(copyData)
-            setAddCount(addCount = addCount + 1)
-            setLoad("none")
-          })
-          .catch(()=>{
-            // 예외처리
-            console.log("fail")
-            setLoad("none")
-          })
-        }
-        else if (addCount == 1) {
-          axios.get('https://codingapple1.github.io/shop/data3.json')
-          .then((result)=>{
-            let copyData = [...shoes, ...result.data]
-            setShoes(copyData)
-            setAddCount(addCount = addCount + 1)
-            setLoad("none")
-          })
-          .catch(()=>{
-            // 예외처리
-            console.log("fail")
-            setLoad("none")
-          })
-        }
-      }} style={{display: addCount > 1 ? "none": "inline-block" }}>추가</button>
     </div>
   );
 }
