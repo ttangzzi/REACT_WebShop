@@ -7,9 +7,10 @@ import bg from './img/bg.png';
 import data from './data'
 import Detail from './routes/component'
 import { Routes, Route, Link, useNavigate, Outlet} from "react-router-dom"
+import axios from "axios"
 
 function App() {
-  let [shoes] = useState(data)
+  let [shoes, setShoes] = useState(data)
   let navigate = useNavigate();
   return (
     <div className="App">
@@ -31,7 +32,7 @@ function App() {
           <div className='main-bg'></div>
           <Row>
             {
-              data.map(function(a, i) {
+              shoes.map(function(a, i) {
               return (
                 <Product key={i}
                 image={`https://codingapple1.github.io/shop/shoes${i+1}.jpg`}
@@ -57,14 +58,25 @@ function App() {
           <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
         </Route>
       </Routes>
-
+      <button onClick={()=>{
+        axios.get('https://codingapple1.github.io/shop/data2.json')
+        .then((result)=>{
+            let copyData = [...data, ...result.data]
+            setShoes(copyData)
+            console.log(copyData)
+        })
+        .catch(()=>{
+          // 예외처리
+          console.log("fail")
+        })
+      }}>추가</button>
     </div>
   );
 }
 
 function Product(props) {
   return (
-    <Col sm>
+    <Col>
       <a href={props.link}>
         <img 
         src={props.image}

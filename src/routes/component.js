@@ -22,19 +22,19 @@ function Detail(props) {
   let [inputValue, setInputValue] = useState('');
   let {id} = useParams();
 
-  useEffect(()=> {
-    // 시간이 오래걸리는 코드, 서버에서 데이터 가져오기, 타이머 등 작성
-    // 렌더링이 모두 완료된 후 실행된다. -> 좀 더 빠르게 HTML 을 보여줄 수 있음
-    let a = setTimeout(()=>{ setTimediv(false) }, 2000);
-    // useEffect 동작 전에 실행되는 return()=>{} (cleanup function)
-    return() => {
-      clearTimeout(a); // 타이머 제거
-    }
-  },[]);
+  // useEffect(()=> {
+  //   // 시간이 오래걸리는 코드, 서버에서 데이터 가져오기, 타이머 등 작성
+  //   // 렌더링이 모두 완료된 후 실행된다. -> 좀 더 빠르게 HTML 을 보여줄 수 있음
+  //   let a = setTimeout(()=>{ setTimediv(false) }, 2000);
+  //   // useEffect 동작 전에 실행되는 return()=>{} (cleanup function)
+  //   return() => {
+  //     clearTimeout(a); // 타이머 제거
+  //   }
+  // },[]);
 
-  useEffect(()=> {
-    isNaN(inputValue) ? setWarn(true) : setWarn(false);
-  },[inputValue])
+  // useEffect(()=> {
+  //   isNaN(inputValue) ? setWarn(true) : setWarn(false);
+  // },[inputValue])
 
   const shoe = props.shoes.find(function(item) { return item.id === Number(id)})
   if(!shoe) {
@@ -49,7 +49,7 @@ function Detail(props) {
           </div> : null
         }
         {count}
-        <button onClick={()=>{setCount(count+1)}}>버튼</button>
+        <button onClick={()=>{setCount(count+1)}}>버튼2</button>
         <Row>
           <Col>
             <img src={`https://codingapple1.github.io/shop/shoes${shoe.id +1}.jpg`} width="100%" />
