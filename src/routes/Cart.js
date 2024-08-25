@@ -4,8 +4,8 @@ import { useSelector } from "react-redux"
 function Cart() {
 
   // state는 모든 state를 뜻하고, 일부분만 가져올 수 있다
-  let a = useSelector((state)=> state)
-  console.log(a.stock);
+  let item = useSelector((state)=> state.item)
+  console.log(item);
   return (
     <div>
       <Table>
@@ -18,12 +18,18 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>안녕</td>
-            <td>안녕</td>
-            <td>안녕</td>
-          </tr>
+          {
+            item.map(function(a) {
+              return(
+                <tr>
+                  <td>{a.id}</td>
+                  <td>{a.name}</td>
+                  <td>{a.count}</td>
+                  <td>x</td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </Table> 
     </div>
