@@ -37,8 +37,16 @@ function Detail(props) {
     isNaN(inputValue) ? setWarn(true) : setWarn(false);
   },[inputValue])
 
+  let [detailFade, setDetailFade] = useState('');
+  useEffect(()=> {
+    let fadeTime = setTimeout(()=>{setDetailFade('end')},500)
+  return () => {
+    clearTimeout(fadeTime);
+    setDetailFade('');
+  }
+  }, [props])
+
   const shoe = props.shoes.find(function(item) { 
-    console.log(item.id)
     return item.id === Number(id)
   })
   if(!shoe) {
@@ -47,7 +55,7 @@ function Detail(props) {
   }
   else {
     return (
-      <Container>
+      <Container className={`start ${detailFade}`}>
         {/* {
           timediv === true ? <div className='alert alert-warning'>
           2초이내 구매시 할인
@@ -100,7 +108,20 @@ function TabContent(props) {
   // else if (props.tab == 2) {
   //   return <div>내용2</div>
   // }
-  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]
+  let [fade, setFade] = useState('');
+  useEffect(()=>{
+    let fadeTime = setTimeout(()=>{ setFade('end') }, 50)
+    return () => {
+      clearTimeout(fadeTime);
+      setFade('')
+    }
+  }, [props])
+
+  return (
+    <div className={`start ${fade}`}>
+      { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab] }
+    </div>
+  )
 }
 
 export default Detail;

@@ -6,6 +6,7 @@ import { Nav, Navbar, Container, Row, Col } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data'
 import Detail from './routes/component'
+import Cart from './routes/Cart'
 import { Routes, Route, Link, useNavigate, Outlet} from "react-router-dom"
 import axios from "axios"
 
@@ -14,7 +15,6 @@ function App() {
   let [addCount, setAddCount] = useState(0);
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
-
   return (
     <div className="App">
 
@@ -23,7 +23,7 @@ function App() {
           <Navbar.Brand href="#">TTANG</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
-            <Nav.Link href="/detail">Features</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('/cart')}}>Cart</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
           </Nav>
         </Container>
@@ -78,7 +78,10 @@ function App() {
           }} style={{display: addCount > 1 ? "none": "inline-block" }}>추가</button>
           </>
         }/>
-        <Route path="/detail/:id" element={<Detail shoes = {shoes}/>}/>
+        <Route path="/detail/:id" 
+        element={<Detail shoes = {shoes}/>}/>
+
+        <Route path="/cart" element={<Cart/>} />
 
         <Route path="*" element={<div>404 페이지</div>}/>
         <Route path="/about" element={<About/>}>
