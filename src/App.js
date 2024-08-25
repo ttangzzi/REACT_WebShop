@@ -5,7 +5,7 @@ import './App.css';
 import { Nav, Navbar, Container, Row, Col } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data'
-import Detail from './routes/Detail'
+import Detail from './routes/Detail.js'
 import Cart from './routes/Cart'
 import { Routes, Route, Link, useNavigate, Outlet} from "react-router-dom"
 import axios from "axios"
@@ -103,11 +103,11 @@ function Product(props) {
     <>
     <div style={{display: props.i % 3 == 0 ? "inline-block" : "none"}}></div>
     <Col>
-      <a href={`/detail/${props.i}`}>
+      <Link to={`/detail/${props.i}`}>
         <img 
         src={`https://codingapple1.github.io/shop/shoes${props.i+1}.jpg`}
         width="80%"/>
-      </a>
+      </Link>
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.content}</p>
     </Col>

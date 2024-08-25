@@ -3,7 +3,7 @@ import { Nav ,Container, Row, Col } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux"
-import { addCart } from "../store/itemSlice.js"
+import { addCart } from "./../store/itemSlice.js"
 // import styled from 'styled-components'
 
 // let ColorBtn = styled.button`
