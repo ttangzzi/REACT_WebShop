@@ -3,8 +3,15 @@ import { configureStore } from '@reduxjs/toolkit'
 
 let user = createSlice({ // useState 역할
   name : 'user',
-  initialState : 'Kim'
+  initialState : 'Kim',
+  reducers : {
+    changeName(state) {
+      return `john ${state}`
+    }
+  }
 })
+
+export let { changeName } = user.actions
 
 let stock = createSlice({ // useState 역할
   name : 'stock',
@@ -16,7 +23,7 @@ let item = createSlice({
   initialState : [
     {id : 0, name : 'White and Black', count : 2},
     {id : 2, name : 'Grey Yordan', count : 1}
-  ] 
+  ]
 })
 
 export default configureStore({

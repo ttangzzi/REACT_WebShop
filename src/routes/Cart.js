@@ -1,13 +1,17 @@
 import { Table } from "react-bootstrap"
+import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
+import { changeName } from "./../store.js"
 
 function Cart() {
 
   // state는 모든 state를 뜻하고, 일부분만 가져올 수 있다
   let item = useSelector((state)=> state.item)
-  console.log(item);
+  let user = useSelector((state)=> state.user)
+  let dispatch = useDispatch()
   return (
     <div>
+      {user}의 장바구니
       <Table>
         <thead>
           <tr>
@@ -19,13 +23,15 @@ function Cart() {
         </thead>
         <tbody>
           {
-            item.map(function(a) {
+            item.map(function(a,i) {
               return(
-                <tr>
+                <tr key={i}>
                   <td>{a.id}</td>
                   <td>{a.name}</td>
                   <td>{a.count}</td>
-                  <td>x</td>
+                  <td><button onClick={()=>{
+                    dispatch(changeName())
+                  }}>+</button></td>
                 </tr>
               )
             })
