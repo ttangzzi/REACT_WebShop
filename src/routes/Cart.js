@@ -1,6 +1,11 @@
 import { Table } from "react-bootstrap"
+import { useSelector } from "react-redux"
 
 function Cart() {
+
+  // state는 모든 state를 뜻하고, 일부분만 가져올 수 있다
+  let a = useSelector((state)=> state)
+  console.log(a.stock);
   return (
     <div>
       <Table>
