@@ -5,7 +5,7 @@ import './App.css';
 import { Nav, Navbar, Container, Row, Col } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data'
-import Detail from './routes/component'
+import Detail from './routes/Detail'
 import Cart from './routes/Cart'
 import { Routes, Route, Link, useNavigate, Outlet} from "react-router-dom"
 import axios from "axios"

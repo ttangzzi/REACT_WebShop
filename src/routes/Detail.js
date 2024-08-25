@@ -2,6 +2,8 @@
 import { Nav ,Container, Row, Col } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux"
+import { addCart } from "../store/itemSlice.js"
 // import styled from 'styled-components'
 
 // let ColorBtn = styled.button`
@@ -22,6 +24,7 @@ function Detail(props) {
   let [inputValue, setInputValue] = useState('');
   let [tab, setTab] = useState(0);
   let {id} = useParams();
+  let dispatch = useDispatch()
 
   // useEffect(()=> {
   //   // 시간이 오래걸리는 코드, 서버에서 데이터 가져오기, 타이머 등 작성
@@ -77,7 +80,9 @@ function Detail(props) {
             <h4 className="pt-5">{shoe.title}</h4>
             <p>{shoe.content}</p>
             <p>{shoe.price}</p>
-            <button className="btn btn-danger">주문하기</button> 
+            <button className="btn btn-danger" onClick={()=>{
+              dispatch(addCart(shoe));
+            }}>주문하기</button> 
           </Col>
         </Row>
 

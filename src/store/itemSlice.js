@@ -11,10 +11,31 @@ let item = createSlice({
         return i.id === action.payload
       })
       searchCount.count += 1;
+    },
+    addCart(state, action) {
+      let haveId = state.find((i)=>{
+        if (i.id === action.payload.id) {
+          return true
+        }
+        else {
+          return false
+        }
+      })
+
+      if(!haveId) {
+        state.push(
+          {
+            id : action.payload.id,
+            name : action.payload.title,
+            count : 1
+          }
+        )
+      }
+      console.log(state.length);
     }
   }
 })
 
-export let { upCount } = item.actions
+export let { upCount, addCart } = item.actions
 
 export default item;
