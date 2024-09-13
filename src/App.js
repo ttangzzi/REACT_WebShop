@@ -15,6 +15,11 @@ function App() {
   let [addCount, setAddCount] = useState(0);
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+
+  useEffect(()=> {
+    localStorage.setItem('watched', JSON.stringify([]))
+  },[])
+
   return (
     <div className="App">
 
@@ -24,7 +29,8 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/cart')}}>Cart</Nav.Link>
-            <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('/event')}}>Event</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -103,7 +109,13 @@ function Product(props) {
     <>
     <div style={{display: props.i % 3 == 0 ? "inline-block" : "none"}}></div>
     <Col>
-      <Link to={`/detail/${props.i}`}>
+      <Link to={`/detail/${props.i}`} onClick={()=>{
+        let watch = JSON.parse(localStorage.getItem("watched"));
+        watch.push(props.i+1);
+        let set = [...new Set(watch)]
+        console.log(set);
+        localStorage.setItem("watched", JSON.stringify(set))
+        }}>
         <img 
         src={`https://codingapple1.github.io/shop/shoes${props.i+1}.jpg`}
         width="80%"/>
