@@ -25,6 +25,9 @@ function Detail(props) {
   let [tab, setTab] = useState(0);
   let {id} = useParams();
   let dispatch = useDispatch()
+  const shoe = props.shoes.find(function(item) { 
+    return item.id === Number(id)
+  })
 
   // useEffect(()=> {
   //   // 시간이 오래걸리는 코드, 서버에서 데이터 가져오기, 타이머 등 작성
@@ -35,6 +38,13 @@ function Detail(props) {
   //     clearTimeout(a); // 타이머 제거
   //   }
   // },[]);
+
+  useEffect(()=>{
+    let watch = JSON.parse(localStorage.getItem("watched"));
+    watch.push(shoe.id);
+    let set = [...new Set(watch)]
+    localStorage.setItem("watched", JSON.stringify(set))
+  })
 
   useEffect(()=> {
     isNaN(inputValue) ? setWarn(true) : setWarn(false);
@@ -49,9 +59,7 @@ function Detail(props) {
   }
   }, [props])
 
-  const shoe = props.shoes.find(function(item) { 
-    return item.id === Number(id)
-  })
+  
   if(!shoe) {
     console.log(id)
     return <div>404 페이지</div>

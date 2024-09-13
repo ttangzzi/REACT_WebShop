@@ -109,13 +109,7 @@ function Product(props) {
     <>
     <div style={{display: props.i % 3 == 0 ? "inline-block" : "none"}}></div>
     <Col>
-      <Link to={`/detail/${props.i}`} onClick={()=>{
-        let watch = JSON.parse(localStorage.getItem("watched"));
-        watch.push(props.i+1);
-        let set = [...new Set(watch)]
-        console.log(set);
-        localStorage.setItem("watched", JSON.stringify(set))
-        }}>
+      <Link to={`/detail/${props.i}`}>
         <img 
         src={`https://codingapple1.github.io/shop/shoes${props.i+1}.jpg`}
         width="80%"/>
