@@ -17,7 +17,11 @@ function App() {
   let navigate = useNavigate();
 
   useEffect(()=> {
-    localStorage.setItem('watched', JSON.stringify([]))
+    let watch = JSON.parse(localStorage.getItem('watched'))
+
+    if(watch.length == 0) {
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
   },[])
 
   return (
@@ -38,7 +42,10 @@ function App() {
       <Routes>
         <Route path="/" element={
           <>
-          <div className='main-bg'></div>
+          <div className='main-bg'>
+            <Watched></Watched>
+          </div>
+          <div style={{clear: "both"}}></div>
           <Row>
             {
               shoes.map(function(a, i) {
@@ -135,6 +142,28 @@ function Event() {
     <div>
       <h4>오늘의 이벤트</h4>
       <Outlet></Outlet>
+    </div>
+  )
+}
+
+function Watched() {
+  return(
+    <div className="watched">
+      <h6 style={{margin:"4px 0px 4px 0px" }}>최근본상품</h6>
+      {
+        JSON.parse(localStorage.getItem("watched")).map(function(a, i){
+          return(
+            i < 3 ?
+              <div style={{margin: "9px 5px 0 5px"}}>
+              <img 
+              src={`https://codingapple1.github.io/shop/shoes${a+1}.jpg`}
+              width="90px"/>
+              </div>
+              :
+              <button>next</button>
+          )
+        }) 
+      }
     </div>
   )
 }
