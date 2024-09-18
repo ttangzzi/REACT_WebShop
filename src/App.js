@@ -1,15 +1,18 @@
 /* eslint-disable */
 import logo from './logo.svg';
-import { useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import './App.css';
 import { Nav, Navbar, Container, Row, Col } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data'
-import Detail from './routes/Detail.js'
-import Cart from './routes/Cart'
+// import Detail from './routes/Detail.js'
+// import Cart from './routes/Cart'
 import { Routes, Route, Link, useNavigate, Outlet} from "react-router-dom"
 import axios from "axios"
 import { useQuery } from "react-query"
+
+const Detail = lazy(() => import('./routes/Detail.js'));
+const Cart = lazy(() => import('./routes/Cart.js'));
 
 function App() {
   let [load, setLoad] = useState("none");
@@ -46,6 +49,7 @@ function App() {
         </Container>
       </Navbar>
 
+      <Suspense fallback={<div>로딩중</div>}>
       <Routes>
         <Route path="/" element={
           <>
@@ -99,7 +103,9 @@ function App() {
           </>
         }/>
         <Route path="/detail/:id" 
-        element={<Detail shoes = {shoes}/>}/>
+        element={
+          <Detail shoes = {shoes}/>
+        }/>
 
         <Route path="/cart" element={<Cart/>} />
 
@@ -114,6 +120,7 @@ function App() {
           <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
         </Route>
       </Routes>
+      </Suspense>
     </div>
   );
 }
